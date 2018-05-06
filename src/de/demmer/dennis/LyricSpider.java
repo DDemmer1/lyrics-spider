@@ -10,7 +10,6 @@ import java.util.List;
 public class LyricSpider {
 
 
-
     private WebDriver driver;
     private List<String> output;
 
@@ -58,11 +57,28 @@ public class LyricSpider {
         if (!songNameEle.isEmpty())
             songName = songNameEle.get(0).getText();
 
-        if (!albumNameEle.isEmpty())
-            albumName = albumNameEle.get(4).getText();
+        if (!albumNameEle.isEmpty() & (albumNameEle.size()>=4)){
+            if(albumNameEle.get(4).getText().equals("Promoted Songs")){
+            }else{
+                albumName = albumNameEle.get(4).getText();
+            }
 
-        if (!artistEle.isEmpty())
+        }
+
+
+//        int j = 0;
+//        if (!albumNameEle.isEmpty())
+//            for (WebElement album : albumNameEle){
+//                System.out.println(j + album.getText());
+//                System.out.println("***");
+//                j++;
+//            }
+
+
+        if (!artistEle.isEmpty()){
+            if(!artistEle.get(0).getAttribute("data-author").isEmpty())
             artist = artistEle.get(0).getAttribute("data-author").toString();
+        }
 
         if (!lyricEle.isEmpty())
             lyrics = lyricEle.get(0).getText();
@@ -79,12 +95,12 @@ public class LyricSpider {
             }
         }
 
-        if(!trackIDEle.isEmpty()){
+        if (!trackIDEle.isEmpty()) {
             trackID = trackIDEle.get(0).getAttribute("data-key");
         }
 
 
-        return new Song(songName,albumName, artist, lyrics, genre, styles, year,trackID);
+        return new Song(songName, albumName, artist, lyrics, genre, styles, year, trackID);
 
 
     }

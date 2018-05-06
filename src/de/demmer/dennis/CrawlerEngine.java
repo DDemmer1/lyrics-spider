@@ -12,7 +12,9 @@ public class CrawlerEngine {
 	public CrawlerEngine(){
 	    // PhantomJS wird geladen
         System.setProperty("phantomjs.binary.path", "executables\\phantomjs.exe");
+
         driver = new PhantomJSDriver();
+
     }
 
 
