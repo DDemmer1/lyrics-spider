@@ -57,7 +57,7 @@ public class LyricSpider {
         if (!songNameEle.isEmpty())
             songName = songNameEle.get(0).getText();
 
-        if (!albumNameEle.isEmpty() & (albumNameEle.size()>=4)){
+        if (!albumNameEle.isEmpty() && (albumNameEle.size()>=4)){
             if(albumNameEle.get(4).getText().equals("Promoted Songs")){
             }else{
                 albumName = albumNameEle.get(4).getText();
@@ -65,14 +65,6 @@ public class LyricSpider {
 
         }
 
-
-//        int j = 0;
-//        if (!albumNameEle.isEmpty())
-//            for (WebElement album : albumNameEle){
-//                System.out.println(j + album.getText());
-//                System.out.println("***");
-//                j++;
-//            }
 
 
         if (!artistEle.isEmpty()){
@@ -83,7 +75,7 @@ public class LyricSpider {
         if (!lyricEle.isEmpty())
             lyrics = lyricEle.get(0).getText();
 
-        if (!yearEle.isEmpty())
+        if (!yearEle.isEmpty() && !yearEle.get(0).getText().contains("Views"))
             year = yearEle.get(0).getText();
 
 
