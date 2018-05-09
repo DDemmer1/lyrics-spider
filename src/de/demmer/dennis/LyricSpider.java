@@ -4,6 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +98,21 @@ public class LyricSpider {
 
         return new Song(songName, albumName, artist, lyrics, genre, styles, year, trackID);
 
+
+    }
+
+
+    public void serialize(List<Song> songs){
+        try {
+            FileOutputStream fout = new FileOutputStream("songs.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(songs);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

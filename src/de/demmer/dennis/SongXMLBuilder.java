@@ -30,20 +30,18 @@ public class SongXMLBuilder {
             Element rootElement = doc.createElement("songs");
             doc.appendChild(rootElement);
 
-
             for (Song s: songList){
-
             // song elements
             Element song = doc.createElement("song");
             rootElement.appendChild(song);
 
             // set song attribute
-             song.setAttribute("id", s.getTrackID());
+            song.setAttribute("id", s.getTrackID());
 
             // songname elements
-            Element firstname = doc.createElement("name");
-            firstname.appendChild(doc.createTextNode(s.getSongName()));
-            song.appendChild(firstname);
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(s.getSongName()));
+            song.appendChild(name);
 
             // album elements
             Element albumName = doc.createElement("album");
@@ -67,10 +65,9 @@ public class SongXMLBuilder {
             song.appendChild(genre);
 
 
-
             // styles elements
             Element styles = doc.createElement("styles");
-            for (String songStyle: s.getStyles()) {
+            for (String songStyle : s.getStyles()) {
                 Element style = doc.createElement("style");
                 styles.appendChild(style);
                 style.appendChild(doc.createTextNode(songStyle));
@@ -83,8 +80,8 @@ public class SongXMLBuilder {
             year.appendChild(doc.createTextNode(s.getYear()));
             song.appendChild(year);
 
+        }
 
-            }
 
             // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();

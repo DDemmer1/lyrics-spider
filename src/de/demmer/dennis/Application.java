@@ -1,5 +1,9 @@
 package de.demmer.dennis;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +12,8 @@ import java.util.List;
  */
 public class Application {
 
-    //TODO for machine learning corpus
-    //TODO clear instrumentals
-    //TODO clear no artists
+    //TODO deserialize first
+
     public static void main(String[] args) {
 
 
@@ -23,14 +26,16 @@ public class Application {
         List<Song> songs = new ArrayList<>();
 
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 5000; i++) {
 
             try {
                 crawler.getDriver().navigate().to("https://www.lyrics.com/random.php");
                 Song song = lyricSpider.crawl();
 
-                if (song.getTrackID().length() > 0) {
+                if (song.getTrackID().length() > 0 && !song.getGenre().isEmpty()) {
+//                if (song.getTrackID().length() > 0) {
                     songs.add(song);
+                    lyricSpider.serialize(songs);
                     System.out.println("SONG "+ i +" ADDED");
                 } else {
                     System.out.println("SONG "+ i +" EMPTY");
@@ -43,13 +48,16 @@ public class Application {
                 System.out.println("IOOBE catched");
             }
         }
-
+        System.out.println(songs.size() + " with genres found");
 
         crawler.stop();
 
-        SongXMLBuilder xmlBuilder = new SongXMLBuilder();
 
-        xmlBuilder.buildXML(songs);
+
+
+
+
+        new SongXMLBuilder().buildXML(songs);
 
     }
 
